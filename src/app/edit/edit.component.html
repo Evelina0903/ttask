@@ -1,5 +1,19 @@
-
-
-
-
-
+<nb-card>
+  <nb-card-header>
+    Edit Elements
+    <button nbButton status="success" (click)="openAddPopup()">Add Element</button>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-list>
+      <nb-list-item *ngFor="let element of elements">
+        <div class="element-item">
+          <span>{{ element.name }}</span>
+          <span>{{ element.creationDate | date: 'short' }}</span>
+          <span>{{ element.dueDate | date: 'short' }}</span>
+          <button nbButton status="info" (click)="editElement(element)">Edit</button>
+          <button nbButton status="danger" (click)="deleteElement(element)">Delete</button>
+        </div>
+      </nb-list-item>
+    </nb-list>
+  </nb-card-body>
+</nb-card>

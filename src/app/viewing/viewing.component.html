@@ -1,0 +1,23 @@
+<nb-card>
+  <nb-card-header>
+    <div class="filters">
+      <input nbInput placeholder="Filter by name" [(ngModel)]="filterName" />
+      <input nbInput type="date" placeholder="Due date from" [(ngModel)]="filterStartDate" />
+      <input nbInput type="date" placeholder="Due date to" [(ngModel)]="filterEndDate" />
+    </div>
+  </nb-card-header>
+  <nb-card-body>
+    <nb-list>
+      <nb-list-item *ngFor="let element of filterElements(); let i = index">
+        <div class="element-item">
+          <span>{{ element.name }}</span>
+          <span>{{ element.creationDate | date: 'short' }}</span>
+          <span>{{ element.dueDate | date: 'short' }}</span>
+          <button nbButton (click)="moveUp(i)">↑</button>
+          <button nbButton (click)="moveDown(i)">↓</button>
+          <button nbButton status="info" (click)="viewElement(element)">View</button>
+        </div>
+      </nb-list-item>
+    </nb-list>
+  </nb-card-body>
+</nb-card>
