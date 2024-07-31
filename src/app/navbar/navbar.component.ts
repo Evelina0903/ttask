@@ -14,14 +14,14 @@ import {NbEvaIconsModule} from "@nebular/eva-icons";
 export class NavbarComponent {
   tabs = [
     {
-      title: 'Editing',
+      title: 'Редактирование',
       route: '/edit',
       icon: 'edit-outline'
     },
     {
-      title: 'Viewing',
+      title: 'Просмотр',
       route: '/viewing',
-      icon: 'book-open-outline'
+      icon: 'book-outline'
     }
   ];
 }

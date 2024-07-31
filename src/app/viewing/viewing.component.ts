@@ -75,8 +75,10 @@ export class ViewingComponent implements OnInit {
   checkDueDates() {
     this.elements.forEach(element => {
       const dueDate = new Date(element.dueDate);
-      if (dueDate <= new Date()) {
-        this.toastrService.show(`Element "${element.name}" is due!`, 'Due Date Reached', { status: 'warning' });
+      const now = new Date();
+      const timeDifference = dueDate.getTime() - now.getTime();
+      if (timeDifference <= 5 * 60 * 1000 && timeDifference > 0) {
+        this.toastrService.show(`Element "${element.name}" is due in 5 minutes!`, 'Due Date Approaching', { status: 'warning' });
       }
     });
   }

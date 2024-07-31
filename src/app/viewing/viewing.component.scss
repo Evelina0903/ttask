@@ -4,14 +4,22 @@
   margin-bottom: 10px;
 }
 
-.element-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #e0e0e0;
+.element-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
 }
 
-.element-item button {
-  margin-left: 5px;
+.element-grid-header {
+  font-weight: bold;
+  display: contents;
+}
+
+.element-grid-item {
+  display: contents;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
 }

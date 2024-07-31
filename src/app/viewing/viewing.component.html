@@ -1,23 +1,35 @@
 <nb-card>
   <nb-card-header>
     <div class="filters">
-      <input nbInput placeholder="Filter by name" [(ngModel)]="filterName" />
-      <input nbInput type="date" placeholder="Due date from" [(ngModel)]="filterStartDate" />
-      <input nbInput type="date" placeholder="Due date to" [(ngModel)]="filterEndDate" />
+      <input nbInput placeholder="Фильтрация по названию" [(ngModel)]="filterName" />
+      <input nbInput type="date" placeholder="" [(ngModel)]="filterStartDate" />
+      <input nbInput type="date" placeholder="" [(ngModel)]="filterEndDate" />
     </div>
   </nb-card-header>
   <nb-card-body>
-    <nb-list>
-      <nb-list-item *ngFor="let element of filterElements(); let i = index">
-        <div class="element-item">
-          <span>{{ element.name }}</span>
-          <span>{{ element.creationDate | date: 'short' }}</span>
-          <span>{{ element.dueDate | date: 'short' }}</span>
-          <button nbButton (click)="moveUp(i)">↑</button>
-          <button nbButton (click)="moveDown(i)">↓</button>
-          <button nbButton status="info" (click)="viewElement(element)">View</button>
+    <div class="element-grid">
+      <div class="element-grid-header">
+        <span>Наименование</span>
+        <span>Дата и время создания</span>
+        <span>Дата и время выполнения</span>
+        <span>Действия</span>
+      </div>
+      <div *ngFor="let element of filterElements(); let i = index" class="element-grid-item">
+        <span>{{ element.name }}</span>
+        <span>{{ element.creationDate | date: 'short' }}</span>
+        <span>{{ element.dueDate | date: 'short' }}</span>
+        <div class="actions">
+          <button nbButton status="info" (click)="viewElement(element)" >
+            <nb-icon icon="book-open-outline"></nb-icon>
+          </button>
+          <button nbButton status="primary" (click)="moveUp(i)">
+            <nb-icon icon="arrow-circle-up-outline"></nb-icon>
+          </button>
+          <button nbButton status="primary" (click)="moveDown(i)">
+            <nb-icon icon="arrow-circle-down-outline"></nb-icon>
+          </button>
         </div>
-      </nb-list-item>
-    </nb-list>
+      </div>
+    </div>
   </nb-card-body>
 </nb-card>

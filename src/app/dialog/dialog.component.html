@@ -1,17 +1,17 @@
 <nb-card>
-  <nb-card-header>{{ isEditing ? 'Edit' : 'Add' }} Element</nb-card-header>
+  <nb-card-header>{{ isEditing ? 'Редактировать' : 'Добавить' }} элемент</nb-card-header>
   <nb-card-body>
     <form (ngSubmit)="save()" #elementForm="ngForm">
-      <input nbInput placeholder="Name" [(ngModel)]="currentElement.name" name="name" required #name="ngModel" />
-      <div *ngIf="name.invalid && name.touched" class="error">Name is required</div>
-      <input nbInput type="datetime-local" placeholder="Due Date" [(ngModel)]="currentElement.dueDate" name="dueDate" required #dueDate="ngModel" />
-      <div *ngIf="dueDate.invalid && dueDate.touched" class="error">Due Date is required</div>
-      <textarea nbInput placeholder="Description" [(ngModel)]="currentElement.description" name="description" required #description="ngModel"></textarea>
-      <div *ngIf="description.invalid && description.touched" class="error">Description is required</div>
+      <input nbInput placeholder="Название" [(ngModel)]="currentElement.name" name="name" required #name="ngModel" />
+      <div *ngIf="name.invalid && name.touched" class="error">Укажите название</div>
+      <input nbInput type="datetime-local" placeholder="Дата" [(ngModel)]="currentElement.dueDate" name="dueDate" required #dueDate="ngModel" />
+      <div *ngIf="dueDate.invalid && dueDate.touched" class="error">Укажите дату</div>
+      <textarea nbInput placeholder="Описание" [(ngModel)]="currentElement.description" name="description" required #description="ngModel"></textarea>
+      <div *ngIf="description.invalid && description.touched" class="error">Укажите описание</div>
     </form>
   </nb-card-body>
   <nb-card-footer>
-    <button nbButton status="success" (click)="save()" [disabled]="elementForm.invalid">Save</button>
-    <button nbButton status="danger" (click)="cancel()">Cancel</button>
+    <button nbButton status="success" (click)="save()" [disabled]="elementForm.invalid">Сохранить</button>
+    <button nbButton status="danger" (click)="cancel()">Отмена</button>
   </nb-card-footer>
 </nb-card>
