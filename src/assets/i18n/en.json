@@ -1,6 +1,51 @@
 {
-  "name": "i18n",
-  "version": "1.0.0",
-  "dependencies": {
+  "DIALOG": {
+    "HEADER": {
+      "VIEW": "View",
+      "EDIT": "Edit",
+      "ADD": "Add"
+    },
+    "PLACEHOLDERS": {
+      "NAME": "Name",
+      "DATE": "Date",
+      "DESCRIPTION": "Description"
+    },
+    "ERRORS": {
+      "NAME": "Please enter a name",
+      "DATE": "Please enter a date",
+      "DESCRIPTION": "Please enter a description"
+    },
+    "BUTTONS": {
+      "SAVE": "Save",
+      "CANCEL": "Cancel"
+    }
+  },
+  "NAVBAR": {
+    "HEADER": {
+      "EDITING": "EDITING",
+      "VIEWING": "VIEWING"
+    }
+  },
+  "EDITING":{
+    "BUTTONS": {
+      "ADD": "Add an item",
+      "EDIT": "Edit",
+      "DELETE": "Delete"
+    }
+  },
+  "VIEWING": {
+    "NAME": "Filtering by name",
+    "DATE1": "Date of completion from",
+    "DATE2": "Date of completion to"
+  },
+  "GRID": {
+    "NAME": "Name",
+    "DATECREATION": "Date and time of creation",
+    "DATEEXECUTION": "Date and time of execution",
+    "ACTIONS": "Actions"
+  },
+  "NOTIFICATION": {
+    "MESSAGE": "The  \"{{name}}\" element is approaching the due date",
+    "TITLE": "Date of fulfillment"
   }
 }

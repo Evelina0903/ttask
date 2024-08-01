@@ -10,6 +10,7 @@ import {
 import {DialogComponent} from "../dialog/dialog.component";
 import {FormsModule} from "@angular/forms";
 import {CommonModule, DatePipe} from "@angular/common";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
 interface Element {
   name: string;
@@ -21,7 +22,7 @@ interface Element {
 @Component({
   selector: 'app-viewing',
   standalone: true,
-  imports: [CommonModule, FormsModule, NbCardModule, NbListModule, NbButtonModule, NbIconModule, NbInputModule, NbDatepickerModule],
+  imports: [CommonModule, FormsModule, NbCardModule, NbListModule, NbButtonModule, NbIconModule, NbInputModule, NbDatepickerModule, TranslateModule],
   templateUrl: './viewing.component.html',
   styleUrl: './viewing.component.scss'
 })
@@ -31,8 +32,11 @@ export class ViewingComponent implements OnInit {
   filterStartDate: Date | null = null;
   filterEndDate: Date | null = null;
 
-  constructor(private dialogService: NbDialogService, private toastrService: NbToastrService) {}
+  constructor(private dialogService: NbDialogService, private toastrService: NbToastrService, private translate: TranslateService) {}
 
+  changeLanguage(language: string) {
+    this.translate.use(language);
+  }
   ngOnInit() {
     this.loadElements();
     this.checkDueDates();
@@ -79,11 +83,12 @@ export class ViewingComponent implements OnInit {
       const dueDate = new Date(element.dueDate);
       const timeDifference = dueDate.getTime() - now.getTime();
       if (timeDifference <= 5 * 60 * 1000 && timeDifference > 0) {
-        this.toastrService.show(`Элемент "${element.name}" приближается к дате выполнения`, 'Дата выполнения', { status: 'warning', preventDuplicates: true });
+        const translatedMessage = this.translate.instant('NOTIFICATION.MESSAGE', { name: element.name });
+        const translatedTitle = this.translate.instant('NOTIFICATION.TITLE');
+        this.toastrService.show(translatedMessage, translatedTitle, { status: 'warning', preventDuplicates: true });
       }
     });
   }
-
   filterElements(): Element[] {
     return this.elements.filter(element => {
       const nameMatch = element.name.toLowerCase().includes(this.filterName.toLowerCase());

@@ -13,22 +13,42 @@ import {TranslateService} from "@ngx-translate/core";
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
+
   tabs = [
     {
-      title: 'Редактирование',
+      title: this.translate.instant('NAVBAR.HEADER.EDITING'),
       route: '/edit',
       icon: 'edit-outline'
     },
     {
-      title: 'Просмотр',
+      title: this.translate.instant('NAVBAR.HEADER.VIEWING'),
       route: '/viewing',
       icon: 'book-outline'
     }
   ];
 
-  constructor(private translate: TranslateService) {}
+  constructor(private translate: TranslateService) {
+    this.translate.onLangChange.subscribe(() => {
+      this.updateTranslations();
+    });
+  }
 
   changeLanguage(language: string) {
     this.translate.use(language);
+  }
+
+  private updateTranslations() {
+    this.tabs = [
+      {
+        title: this.translate.instant('NAVBAR.HEADER.EDITING'),
+        route: '/edit',
+        icon: 'edit-outline'
+      },
+      {
+        title: this.translate.instant('NAVBAR.HEADER.VIEWING'),
+        route: '/viewing',
+        icon: 'book-outline'
+      }
+    ];
   }
 }

@@ -3,6 +3,7 @@ import {DialogComponent} from "../dialog/dialog.component";
 import {NbButtonModule, NbCardModule, NbDialogModule, NbDialogService, NbListModule} from "@nebular/theme";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
 interface Element {
   name: string;
@@ -14,7 +15,7 @@ interface Element {
 @Component({
   selector: 'app-edit',
   standalone: true,
-  imports: [CommonModule, FormsModule, NbCardModule, NbListModule, NbButtonModule],
+  imports: [CommonModule, FormsModule, NbCardModule, NbListModule, NbButtonModule, TranslateModule],
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.scss'
 })
@@ -23,7 +24,11 @@ export class EditComponent implements OnInit {
   currentElement: Element = {} as Element;
   isEditing = false;
 
-  constructor(private dialogService: NbDialogService) {}
+
+  constructor(private dialogService: NbDialogService, private translate: TranslateService) {}
+  changeLanguage(language: string) {
+    this.translate.use(language);
+  }
 
   ngOnInit() {
     this.loadElements();
@@ -70,7 +75,7 @@ export class EditComponent implements OnInit {
           const index = this.elements.findIndex(el => el.creationDate === element.creationDate);
           this.elements[index] = element;
         } else {
-          this.currentElement.creationDate = new Date();  // Initialize creationDate here
+          this.currentElement.creationDate = new Date();
           this.elements.push(element);
         }
         this.saveElements();

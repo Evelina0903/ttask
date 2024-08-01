@@ -1,22 +1,22 @@
 <nb-card>
   <nb-card-header>
-    <button nbButton status="success" (click)="openAddPopup()">Добавить элемент</button>
+    <button nbButton status="success" (click)="openAddPopup()">{{ 'EDITING.BUTTONS.ADD' | translate }}</button>
   </nb-card-header>
   <nb-card-body>
     <div class="element-grid">
       <div class="element-grid-header">
-        <span>Название</span>
-        <span>Дата создания</span>
-        <span>Дата выполнения</span>
-        <span>Действия</span>
+        <span>{{ 'GRID.NAME' | translate }}</span>
+        <span>{{ 'GRID.DATECREATION' | translate }}</span>
+        <span>{{ 'GRID.DATEEXECUTION' | translate }}</span>
+        <span>{{ 'GRID.ACTIONS' | translate }}</span>
       </div>
       <div *ngFor="let element of elements" class="element-grid-item">
         <span>{{ element.name }}</span>
         <span>{{ element.creationDate | date: 'dd.MM.yyyy HH:mm' }}</span>
         <span>{{ element.dueDate | date: 'dd.MM.yyyy HH:mm' }}</span>
         <div class="actions">
-          <button nbButton status="info" (click)="editElement(element)">Редактировать</button>
-          <button nbButton status="danger" (click)="deleteElement(element)">Удалить</button>
+          <button nbButton status="info" (click)="editElement(element)">{{ 'EDITING.BUTTONS.EDIT' | translate }}</button>
+          <button nbButton status="danger" (click)="deleteElement(element)">{{ 'EDITING.BUTTONS.DELETE' | translate }}</button>
         </div>
       </div>
     </div>

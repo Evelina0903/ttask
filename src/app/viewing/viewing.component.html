@@ -1,20 +1,20 @@
 <nb-card>
   <nb-card-header>
     <div class="filters">
-      <input nbInput placeholder="Фильтрация по названию" [(ngModel)]="filterName" />
-      <input nbInput placeholder="Дата выполнения с" [(ngModel)]="filterStartDate" [nbDatepicker]="startDatePicker" />
+      <input nbInput placeholder="{{ 'VIEWING.NAME' | translate }}" [(ngModel)]="filterName" />
+      <input nbInput placeholder="{{ 'VIEWING.DATE1' | translate }}" [(ngModel)]="filterStartDate" [nbDatepicker]="startDatePicker" />
       <nb-datepicker #startDatePicker></nb-datepicker>
-      <input nbInput placeholder="Дата выполнения по" [(ngModel)]="filterEndDate" [nbDatepicker]="endDatePicker" />
+      <input nbInput placeholder="{{ 'VIEWING.DATE2' | translate }}" [(ngModel)]="filterEndDate" [nbDatepicker]="endDatePicker" />
       <nb-datepicker #endDatePicker></nb-datepicker>
     </div>
   </nb-card-header>
   <nb-card-body>
     <div class="element-grid">
       <div class="element-grid-header">
-        <span>Наименование</span>
-        <span>Дата и время создания</span>
-        <span>Дата и время выполнения</span>
-        <span>Действия</span>
+        <span>{{ 'GRID.NAME' | translate }}</span>
+        <span>{{ 'GRID.DATECREATION' | translate }}</span>
+        <span>{{ 'GRID.DATEEXECUTION' | translate }}</span>
+        <span>{{ 'GRID.ACTIONS' | translate }}</span>
       </div>
       <div *ngFor="let element of filterElements(); let i = index" class="element-grid-item">
         <span>{{ element.name }}</span>
