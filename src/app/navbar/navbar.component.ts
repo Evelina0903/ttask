@@ -2,6 +2,7 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {RouterModule} from "@angular/router";
 import {NbButtonModule, NbCardModule, NbRouteTabsetModule, NbStepperModule, NbTabsetModule} from "@nebular/theme";
 import {NbEvaIconsModule} from "@nebular/eva-icons";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-navbar',
@@ -24,4 +25,10 @@ export class NavbarComponent {
       icon: 'book-outline'
     }
   ];
+
+  constructor(private translate: TranslateService) {}
+
+  changeLanguage(language: string) {
+    this.translate.use(language);
+  }
 }

@@ -1,5 +1,9 @@
 <nb-card>
   <nb-card-body>
+    <div class="local">
+      <button nbButton status="primary" (click)="changeLanguage('en')">English</button>
+      <button nbButton status="primary" (click)="changeLanguage('ru')">Русский</button>
+    </div>
     <nb-route-tabset [tabs]="tabs"></nb-route-tabset>
   </nb-card-body>
 </nb-card>

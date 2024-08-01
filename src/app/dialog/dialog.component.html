@@ -1,7 +1,7 @@
 <nb-card>
   <nb-card-header>{{ isViewing ? 'Просмотр' : (isEditing ? 'Редактирование' : 'Добавление') }} элемента</nb-card-header>
   <nb-card-body>
-    <form (ngSubmit)="save(form)" #form="ngForm">
+    <form class="dialog-form" (ngSubmit)="save(form)" #form="ngForm">
       <input nbInput placeholder="Название" [(ngModel)]="currentElement.name" name="name" required #name="ngModel" [disabled]="isViewing" />
       <div *ngIf="name.invalid && name.touched" class="error">Укажите название</div>
 
@@ -12,7 +12,7 @@
       <div *ngIf="description.invalid && description.touched" class="error">Укажите описание</div>
     </form>
   </nb-card-body>
-  <nb-card-footer *ngIf="!isViewing">
+  <nb-card-footer class="dialog-bt" *ngIf="!isViewing">
     <button nbButton status="success" (click)="save(form)" [disabled]="!form.valid">Сохранить</button>
     <button nbButton status="danger" (click)="cancel()">Отмена</button>
   </nb-card-footer>

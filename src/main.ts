@@ -17,6 +17,13 @@ import {NbEvaIconsModule} from "@nebular/eva-icons";
 import {NavbarComponent} from "./app/navbar/navbar.component";
 import {ViewingComponent} from "./app/viewing/viewing.component";
 import {FormsModule} from "@angular/forms";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, 'assets/i18n/', '.json');
+}
 
 const routes: Routes = [
   { path: 'edit', component: EditComponent },
@@ -36,7 +43,15 @@ bootstrapApplication(AppComponent, {
       NbToastrModule.forRoot(),
       NbEvaIconsModule,
       NbDatepickerModule.forRoot(),
-      FormsModule
+      FormsModule,
+      HttpClientModule,
+      TranslateModule.forRoot({
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient]
+        }
+      })
     ),
     provideAnimations()
   ],
