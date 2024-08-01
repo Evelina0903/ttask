@@ -61,7 +61,8 @@ export class EditComponent implements OnInit {
     this.dialogService.open(DialogComponent, {
       context: {
         currentElement: this.currentElement,
-        isEditing: this.isEditing
+        isEditing: this.isEditing,
+        isViewing: false
       }
     }).onClose.subscribe((element: Element) => {
       if (element) {

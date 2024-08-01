@@ -21,7 +21,7 @@ interface Element {
 @Component({
   selector: 'app-viewing',
   standalone: true,
-  imports: [CommonModule, FormsModule, NbCardModule, NbListModule, NbButtonModule, NbIconModule, NbInputModule],
+  imports: [CommonModule, FormsModule, NbCardModule, NbListModule, NbButtonModule, NbIconModule, NbInputModule, NbDatepickerModule],
   templateUrl: './viewing.component.html',
   styleUrl: './viewing.component.scss'
 })
@@ -67,18 +67,19 @@ export class ViewingComponent implements OnInit {
     this.dialogService.open(DialogComponent, {
       context: {
         currentElement: element,
-        isEditing: false
+        isEditing: false,
+        isViewing: true
       }
     });
   }
 
   checkDueDates() {
+    const now = new Date();
     this.elements.forEach(element => {
       const dueDate = new Date(element.dueDate);
-      const now = new Date();
       const timeDifference = dueDate.getTime() - now.getTime();
       if (timeDifference <= 5 * 60 * 1000 && timeDifference > 0) {
-        this.toastrService.show(`Element "${element.name}" is due in 5 minutes!`, 'Due Date Approaching', { status: 'warning' });
+        this.toastrService.show(`Элемент "${element.name}" приближается к дате выполнения`, 'Дата выполнения', { status: 'warning', preventDuplicates: true });
       }
     });
   }

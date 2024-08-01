@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {FormsModule, NgForm} from '@angular/forms';
 import { NbCardModule, NbInputModule, NbButtonModule, NbDatepickerModule } from '@nebular/theme';
 
 interface Element {
@@ -21,17 +21,20 @@ interface Element {
 export class DialogComponent implements OnInit {
   @Input() currentElement: Element = {} as Element;
   @Input() isEditing: boolean = false;
+  @Input() isViewing: boolean = false;
 
   constructor(protected ref: NbDialogRef<DialogComponent>) {}
 
   ngOnInit() {
-    if (!this.isEditing) {
+    if (!this.isEditing && !this.isViewing) {
       this.currentElement.creationDate = new Date();
     }
   }
 
-  save() {
-    this.ref.close(this.currentElement);
+  save(form: NgForm) {
+    if (form.valid) {
+      this.ref.close(this.currentElement);
+    }
   }
 
   cancel() {

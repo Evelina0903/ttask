@@ -2,8 +2,10 @@
   <nb-card-header>
     <div class="filters">
       <input nbInput placeholder="Фильтрация по названию" [(ngModel)]="filterName" />
-      <input nbInput type="date" placeholder="" [(ngModel)]="filterStartDate" />
-      <input nbInput type="date" placeholder="" [(ngModel)]="filterEndDate" />
+      <input nbInput placeholder="Дата выполнения с" [(ngModel)]="filterStartDate" [nbDatepicker]="startDatePicker" />
+      <nb-datepicker #startDatePicker></nb-datepicker>
+      <input nbInput placeholder="Дата выполнения по" [(ngModel)]="filterEndDate" [nbDatepicker]="endDatePicker" />
+      <nb-datepicker #endDatePicker></nb-datepicker>
     </div>
   </nb-card-header>
   <nb-card-body>
@@ -16,10 +18,10 @@
       </div>
       <div *ngFor="let element of filterElements(); let i = index" class="element-grid-item">
         <span>{{ element.name }}</span>
-        <span>{{ element.creationDate | date: 'short' }}</span>
-        <span>{{ element.dueDate | date: 'short' }}</span>
+        <span>{{ element.creationDate | date: 'dd.MM.yyyy HH:mm' }}</span>
+        <span>{{ element.dueDate | date: 'dd.MM.yyyy HH:mm' }}</span>
         <div class="actions">
-          <button nbButton status="info" (click)="viewElement(element)" >
+          <button nbButton status="info" (click)="viewElement(element)">
             <nb-icon icon="book-open-outline"></nb-icon>
           </button>
           <button nbButton status="primary" (click)="moveUp(i)">
