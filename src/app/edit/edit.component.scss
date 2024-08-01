@@ -9,3 +9,23 @@
 .element-item button {
   margin-left: 10px;
 }
+
+.element-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.element-grid-header {
+  font-weight: bold;
+  display: contents;
+}
+
+.element-grid-item {
+  display: contents;
+}
+
+.actions {
+  display: flex;
+  gap: 5px;
+}

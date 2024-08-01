@@ -2,13 +2,13 @@
   <nb-card-header>{{ isViewing ? 'Просмотр' : (isEditing ? 'Редактирование' : 'Добавление') }} элемента</nb-card-header>
   <nb-card-body>
     <form (ngSubmit)="save(form)" #form="ngForm">
-      <input nbInput placeholder="Название" [(ngModel)]="currentElement.name" name="name" required #name="ngModel" />
+      <input nbInput placeholder="Название" [(ngModel)]="currentElement.name" name="name" required #name="ngModel" [disabled]="isViewing" />
       <div *ngIf="name.invalid && name.touched" class="error">Укажите название</div>
 
-      <input nbInput type="datetime-local" placeholder="Дата" [(ngModel)]="currentElement.dueDate" name="dueDate" required #dueDate="ngModel" />
+      <input nbInput type="datetime-local" placeholder="Дата" [(ngModel)]="currentElement.dueDate" name="dueDate" required #dueDate="ngModel" [disabled]="isViewing" />
       <div *ngIf="dueDate.invalid && dueDate.touched" class="error">Укажите дату</div>
 
-      <textarea nbInput placeholder="Описание" [(ngModel)]="currentElement.description" name="description" required #description="ngModel"></textarea>
+      <textarea nbInput placeholder="Описание" [(ngModel)]="currentElement.description" name="description" required #description="ngModel" [disabled]="isViewing"></textarea>
       <div *ngIf="description.invalid && description.touched" class="error">Укажите описание</div>
     </form>
   </nb-card-body>
