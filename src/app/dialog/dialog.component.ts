@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { CommonModule } from '@angular/common';
-import {FormsModule, NgForm} from '@angular/forms';
+import {FormBuilder, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { NbCardModule, NbInputModule, NbButtonModule, NbDatepickerModule } from '@nebular/theme';
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 
@@ -15,7 +15,7 @@ interface Element {
 @Component({
   selector: 'app-dialog',
   standalone: true,
-  imports: [CommonModule, FormsModule, NbCardModule, NbInputModule, NbButtonModule, NbDatepickerModule, TranslateModule],
+  imports: [CommonModule, FormsModule, NbCardModule, NbInputModule, NbButtonModule, NbDatepickerModule, TranslateModule, ReactiveFormsModule],
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss'
 })
@@ -25,10 +25,21 @@ export class DialogComponent implements OnInit {
   @Input() isViewing: boolean = false;
 
   headerText: string = '';
+  form: any;
 
-  constructor(protected ref: NbDialogRef<DialogComponent>, private translate: TranslateService) {}
+  constructor(
+    protected ref: NbDialogRef<DialogComponent>,
+    private fb: FormBuilder,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit() {
+    this.form = this.fb.group({
+      name: [{ value: this.currentElement.name, disabled: this.isViewing }, Validators.required],
+      dueDate: [{ value: this.currentElement.dueDate, disabled: this.isViewing }, Validators.required],
+      description: [{ value: this.currentElement.description, disabled: this.isViewing }, Validators.required]
+    });
+
     if (!this.isEditing && !this.isViewing) {
       this.currentElement.creationDate = new Date();
     }
@@ -45,9 +56,10 @@ export class DialogComponent implements OnInit {
     }
   }
 
-  save(form: NgForm) {
-    if (form.valid) {
-      this.ref.close(this.currentElement);
+
+  save() {
+    if (this.form.valid) {
+      this.ref.close({ ...this.currentElement, ...this.form.value });
     }
   }
 

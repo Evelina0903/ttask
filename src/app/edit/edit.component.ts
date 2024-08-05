@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {DialogComponent} from "../dialog/dialog.component";
 import {NbButtonModule, NbCardModule, NbDialogModule, NbDialogService, NbListModule} from "@nebular/theme";
 import {CommonModule} from "@angular/common";
@@ -25,7 +25,7 @@ export class EditComponent implements OnInit {
   isEditing = false;
 
 
-  constructor(private dialogService: NbDialogService, private translate: TranslateService) {}
+  constructor(private dialogService: NbDialogService, private translate: TranslateService,  private cdr: ChangeDetectorRef) {}
   changeLanguage(language: string) {
     this.translate.use(language);
   }
@@ -79,6 +79,7 @@ export class EditComponent implements OnInit {
           this.elements.push(element);
         }
         this.saveElements();
+        this.cdr.markForCheck();
       }
     });
   }

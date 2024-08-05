@@ -1,19 +1,25 @@
 <nb-card>
   <nb-card-header>{{ headerText }}</nb-card-header>
   <nb-card-body>
-    <form class="dialog-form" (ngSubmit)="save(form)" #form="ngForm">
-      <input nbInput placeholder="{{ 'DIALOG.PLACEHOLDERS.NAME' | translate }}" [(ngModel)]="currentElement.name" name="name" required #name="ngModel" [disabled]="isViewing" />
-      <div *ngIf="name.invalid && name.touched" class="error">{{ 'DIALOG.ERRORS.NAME' | translate }}</div>
+    <form [formGroup]="form" class="dialog-form">
+      <input nbInput placeholder="{{ 'DIALOG.PLACEHOLDERS.NAME' | translate }}" formControlName="name" required />
+      <div *ngIf="form.controls['name'].invalid && form.controls['name'].touched" class="error">
+        {{ 'DIALOG.ERRORS.NAME' | translate }}
+      </div>
 
-      <input nbInput type="datetime-local" placeholder="{{ 'DIALOG.PLACEHOLDERS.DATE' | translate }}"  [(ngModel)]="currentElement.dueDate" name="dueDate" required #dueDate="ngModel" [disabled]="isViewing" />
-      <div *ngIf="dueDate.invalid && dueDate.touched" class="error">{{ 'DIALOG.ERRORS.DATE' | translate }}</div>
+      <input nbInput type="datetime-local" placeholder="{{ 'DIALOG.PLACEHOLDERS.DATE' | translate }}" formControlName="dueDate" required />
+      <div *ngIf="form.controls['dueDate'].invalid && form.controls['dueDate'].touched" class="error">
+        {{ 'DIALOG.ERRORS.DATE' | translate }}
+      </div>
 
-      <textarea nbInput placeholder="{{ 'DIALOG.PLACEHOLDERS.DESCRIPTION' | translate }}" [(ngModel)]="currentElement.description" name="description" required #description="ngModel" [disabled]="isViewing"></textarea>
-      <div *ngIf="description.invalid && description.touched" class="error">{{ 'DIALOG.ERRORS.DESCRIPTION' | translate }}</div>
+      <textarea nbInput placeholder="{{ 'DIALOG.PLACEHOLDERS.DESCRIPTION' | translate }}" formControlName="description" required></textarea>
+      <div *ngIf="form.controls['description'].invalid && form.controls['description'].touched" class="error">
+        {{ 'DIALOG.ERRORS.DESCRIPTION' | translate }}
+      </div>
     </form>
   </nb-card-body>
   <nb-card-footer class="dialog-bt" *ngIf="!isViewing">
-    <button nbButton status="success" (click)="save(form)" [disabled]="!form.valid">{{ 'DIALOG.BUTTONS.SAVE' | translate }}</button>
+    <button nbButton status="success" (click)="save()" [disabled]="!form.valid">{{ 'DIALOG.BUTTONS.SAVE' | translate }}</button>
     <button nbButton status="danger" (click)="cancel()">{{ 'DIALOG.BUTTONS.CANCEL' | translate }}</button>
   </nb-card-footer>
 </nb-card>
