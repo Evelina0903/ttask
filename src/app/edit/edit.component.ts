@@ -4,6 +4,7 @@ import {NbButtonModule, NbCardModule, NbDialogModule, NbDialogService, NbListMod
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
+import {ElementService} from "../services/element.service";
 
 interface Element {
   name: string;
@@ -20,46 +21,44 @@ interface Element {
   styleUrl: './edit.component.scss'
 })
 export class EditComponent implements OnInit {
-  elements: Element[] = [];
+  elements$ = this.elementService.elements$;
   currentElement: Element = {} as Element;
   isEditing = false;
+  editingIndex: number | null = null;
 
+  constructor(
+    private dialogService: NbDialogService,
+    private translate: TranslateService,
+    private elementService: ElementService,
+    private cdr: ChangeDetectorRef
+  ) {}
 
-  constructor(private dialogService: NbDialogService, private translate: TranslateService,  private cdr: ChangeDetectorRef) {}
   changeLanguage(language: string) {
     this.translate.use(language);
   }
 
   ngOnInit() {
-    this.loadElements();
-  }
-
-  loadElements() {
-    const storedElements = localStorage.getItem('elements');
-    if (storedElements) {
-      this.elements = JSON.parse(storedElements);
-    }
-  }
-
-  saveElements() {
-    localStorage.setItem('elements', JSON.stringify(this.elements));
+    this.elementService.elements$.subscribe(elements => {
+      this.elements$ = this.elementService.elements$;
+    });
   }
 
   openAddPopup() {
     this.currentElement = {} as Element;
     this.isEditing = false;
+    this.editingIndex = null;
     this.openDialog();
   }
 
-  editElement(element: Element) {
+  editElement(element: Element, index: number) {
     this.currentElement = { ...element };
     this.isEditing = true;
+    this.editingIndex = index;
     this.openDialog();
   }
 
-  deleteElement(element: Element) {
-    this.elements = this.elements.filter(el => el !== element);
-    this.saveElements();
+  deleteElement(index: number) {
+    this.elementService.deleteElement(index);
   }
 
   openDialog() {
@@ -71,14 +70,14 @@ export class EditComponent implements OnInit {
       }
     }).onClose.subscribe((element: Element) => {
       if (element) {
-        if (this.isEditing) {
-          const index = this.elements.findIndex(el => el.creationDate === element.creationDate);
-          this.elements[index] = element;
+        if (this.isEditing && this.editingIndex !== null) {
+
+          this.elementService.updateElement(this.editingIndex, element);
         } else {
+
           this.currentElement.creationDate = new Date();
-          this.elements.push(element);
+          this.elementService.addElement(element);
         }
-        this.saveElements();
         this.cdr.markForCheck();
       }
     });

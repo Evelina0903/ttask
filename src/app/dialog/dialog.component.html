@@ -3,17 +3,17 @@
   <nb-card-body>
     <form [formGroup]="form" class="dialog-form">
       <input nbInput placeholder="{{ 'DIALOG.PLACEHOLDERS.NAME' | translate }}" formControlName="name" required />
-      <div *ngIf="form.controls['name'].invalid && form.controls['name'].touched" class="error">
+      <div *ngIf="form.controls.name.invalid && form.controls.name.touched" class="error">
         {{ 'DIALOG.ERRORS.NAME' | translate }}
       </div>
 
       <input nbInput type="datetime-local" placeholder="{{ 'DIALOG.PLACEHOLDERS.DATE' | translate }}" formControlName="dueDate" required />
-      <div *ngIf="form.controls['dueDate'].invalid && form.controls['dueDate'].touched" class="error">
+      <div *ngIf="form.controls.dueDate.invalid && form.controls.dueDate.touched" class="error">
         {{ 'DIALOG.ERRORS.DATE' | translate }}
       </div>
 
       <textarea nbInput placeholder="{{ 'DIALOG.PLACEHOLDERS.DESCRIPTION' | translate }}" formControlName="description" required></textarea>
-      <div *ngIf="form.controls['description'].invalid && form.controls['description'].touched" class="error">
+      <div *ngIf="form.controls.description.invalid && form.controls.description.touched" class="error">
         {{ 'DIALOG.ERRORS.DESCRIPTION' | translate }}
       </div>
     </form>

@@ -16,7 +16,7 @@
         <span>{{ 'GRID.DATEEXECUTION' | translate }}</span>
         <span>{{ 'GRID.ACTIONS' | translate }}</span>
       </div>
-      <div *ngFor="let element of filterElements(); let i = index" class="element-grid-item">
+      <div *ngFor="let element of filteredElements$ | async; let i = index" class="element-grid-item">
         <span>{{ element.name }}</span>
         <span>{{ element.creationDate | date: 'dd.MM.yyyy HH:mm' }}</span>
         <span>{{ element.dueDate | date: 'dd.MM.yyyy HH:mm' }}</span>
